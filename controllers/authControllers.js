@@ -18,7 +18,7 @@ class auth {
           res.send('incorrect pass')
         }
       } else {
-        throw new Error('no such')
+        res.send('no such user')
       }
     } catch (e) {
       res.send(e)
@@ -28,11 +28,7 @@ class auth {
     try {
       let { email, password } = req.body
 
-      let salt = await bcrypt.genSalt()
-      password = await bcrypt.hash(password, salt)
-      console.log(email, password)
       let user = await User.create({ email, password })
-      console.log('user', user)
       const token = jwt.sign({ id: user.id }, process.env.SECRET, {
         expiresIn: 3600,
       })
