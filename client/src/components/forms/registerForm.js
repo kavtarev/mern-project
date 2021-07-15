@@ -1,10 +1,16 @@
 import React from 'react'
 import { useState } from 'react'
-
+import './forms.css'
 function RegisterForm() {
   let [value, setValue] = useState({ email: '', password: '' })
+  let [emailError, setEmailError] = useState('')
+  let [passwordError, setPasswordError] = useState('')
   const hadleChange = (e) => {
     setValue({ ...value, [e.target.name]: e.target.value })
+  }
+  const handleFocus = () => {
+    setEmailError('')
+    setPasswordError('')
   }
   const handleSubmit = async (e) => {
     e.preventDefault()
@@ -16,29 +22,40 @@ function RegisterForm() {
         body: JSON.stringify(value),
       })
       const res = await data.json()
-      console.log(res)
+      if (typeof res.message === 'string') {
+        setEmailError(res.message)
+      }
+      if (res.message.email) {
+        setEmailError(res.message.email.message)
+      }
+      if (res.message.password) {
+        setPasswordError(res.message.password.message)
+      }
     } catch (e) {
       throw e
     }
   }
   return (
-    <div>
-      <form>
+    <div className='wraper'>
+      <form onFocus={handleFocus}>
         <label htmlFor='email'>email</label>
         <input
           value={value.email}
           onChange={hadleChange}
           type='email'
           name='email'
+          id='email'
         />
-        <span></span>
+        <span>{emailError}</span>
         <label htmlFor='password'>password</label>
         <input
           value={value.password}
           onChange={hadleChange}
           type='password'
           name='password'
+          id='password'
         />
+        <span>{passwordError}</span>
         <button onClick={handleSubmit}>register</button>
       </form>
     </div>

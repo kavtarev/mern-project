@@ -11,7 +11,7 @@ class auth {
           const token = jwt.sign({ id: user.id }, process.env.SECRET, {
             expiresIn: 3600,
           })
-          //res.cookie('JWT', token, { httpOnly: true, maxAge: 3600 * 1000 })
+          res.cookie('JWT', token, { maxAge: 3600 * 1000 })
           res.status(200).json({ token })
         }
         if (!isLegit) {
@@ -32,10 +32,13 @@ class auth {
       const token = jwt.sign({ id: user.id }, process.env.SECRET, {
         expiresIn: 3600,
       })
-      res.cookie('JWT', token, { httpOnly: true, maxAge: 3600 * 1000 })
+      res.cookie('JWT', token, { maxAge: 3600 * 1000 })
       res.status(200).json({ token })
     } catch (e) {
-      res.send(e)
+      if (e.code === 11000) res.json({ message: 'email is already taken' })
+      else {
+        res.json({ message: e.errors })
+      }
     }
   }
 }

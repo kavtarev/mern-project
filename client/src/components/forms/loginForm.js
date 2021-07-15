@@ -1,13 +1,10 @@
 import React from 'react'
 import { useState } from 'react'
 import { useHistory } from 'react-router-dom'
-
+import './forms.css'
 function LoginForm() {
   let history = useHistory()
 
-  function handleClick() {
-    history.push('/')
-  }
   let [value, setValue] = useState({ email: '', password: '' })
   let [error, setError] = useState('')
   const hadleChange = (e) => {
@@ -29,14 +26,15 @@ function LoginForm() {
       if (res.message) {
         setError(res.message)
       } else {
-        localStorage.setItem('auth', JSON.stringify({ token: res.token }))
+        history.push('/')
+        // localStorage.setItem('auth', JSON.stringify({ token: res.token }))
       }
     } catch (e) {
       throw e
     }
   }
   return (
-    <div>
+    <div className='wraper'>
       <form onFocus={handleFocus}>
         <label htmlFor='email'>email</label>
         <input
@@ -44,18 +42,20 @@ function LoginForm() {
           onChange={hadleChange}
           type='email'
           name='email'
+          id='email'
         />
-        <span>{error}</span>
+
         <label htmlFor='password'>password</label>
         <input
           value={value.password}
           onChange={hadleChange}
           type='password'
           name='password'
+          id='password'
         />
+        <span>{error}</span>
         <button onClick={handleSubmit}>login</button>
       </form>
-      <button onClick={handleClick}>tryyyyyy</button>
     </div>
   )
 }
