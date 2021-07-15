@@ -12,7 +12,7 @@ app.use('/api/auth', router)
 app.use(cookieParser())
 
 app.get('/', (req, res) => {
-  res.sendFile(__dirname + '/index.html')
+  res.json({ hi: 'hi' })
 })
 mongoose.connect(
   process.env.DB,

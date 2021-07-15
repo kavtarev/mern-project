@@ -11,17 +11,17 @@ class auth {
           const token = jwt.sign({ id: user.id }, process.env.SECRET, {
             expiresIn: 3600,
           })
-          res.cookie('JWT', token, { httpOnly: true, maxAge: 3600 * 1000 })
-          res.status(200).send(user)
+          //res.cookie('JWT', token, { httpOnly: true, maxAge: 3600 * 1000 })
+          res.status(200).json({ token })
         }
         if (!isLegit) {
-          res.send('incorrect pass')
+          throw new Error('incorrect email or password')
         }
       } else {
-        res.send('no such user')
+        throw new Error('incorrect email or password')
       }
     } catch (e) {
-      res.send(e)
+      res.json({ message: e.message })
     }
   }
   async postRegister(req, res) {
@@ -33,7 +33,7 @@ class auth {
         expiresIn: 3600,
       })
       res.cookie('JWT', token, { httpOnly: true, maxAge: 3600 * 1000 })
-      res.status(200).send(user)
+      res.status(200).json({ token })
     } catch (e) {
       res.send(e)
     }

@@ -1,11 +1,15 @@
+import { BrowserRouter } from 'react-router-dom'
 import './App.css'
-import RegisterForm from './components/forms/registerForm'
-
+import { Navbar } from './components/navbar/navbar'
+import { Routes } from './components/routes'
+import React from 'react'
 function App() {
+  const routes = Routes(true)
   return (
-    <div>
-      <RegisterForm />
-    </div>
+    <BrowserRouter>
+      <Navbar />
+      <div>{routes}</div>
+    </BrowserRouter>
   )
 }
 

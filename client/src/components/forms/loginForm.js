@@ -1,29 +1,43 @@
 import React from 'react'
 import { useState } from 'react'
+import { useHistory } from 'react-router-dom'
 
-function RegisterForm() {
+function LoginForm() {
+  let history = useHistory()
+
+  function handleClick() {
+    history.push('/')
+  }
   let [value, setValue] = useState({ email: '', password: '' })
+  let [error, setError] = useState('')
   const hadleChange = (e) => {
     setValue({ ...value, [e.target.name]: e.target.value })
+  }
+  const handleFocus = () => {
+    setError('')
   }
   const handleSubmit = async (e) => {
     e.preventDefault()
     try {
-      const data = await fetch('/api/auth/register', {
+      const data = await fetch('/api/auth/login', {
         method: 'POST',
         headers: { 'Content-type': 'application/json' },
 
         body: JSON.stringify(value),
       })
       const res = await data.json()
-      console.log(res)
+      if (res.message) {
+        setError(res.message)
+      } else {
+        localStorage.setItem('auth', JSON.stringify({ token: res.token }))
+      }
     } catch (e) {
       throw e
     }
   }
   return (
     <div>
-      <form>
+      <form onFocus={handleFocus}>
         <label htmlFor='email'>email</label>
         <input
           value={value.email}
@@ -31,7 +45,7 @@ function RegisterForm() {
           type='email'
           name='email'
         />
-        <span></span>
+        <span>{error}</span>
         <label htmlFor='password'>password</label>
         <input
           value={value.password}
@@ -39,10 +53,11 @@ function RegisterForm() {
           type='password'
           name='password'
         />
-        <button onClick={handleSubmit}>register</button>
+        <button onClick={handleSubmit}>login</button>
       </form>
+      <button onClick={handleClick}>tryyyyyy</button>
     </div>
   )
 }
 
-export default RegisterForm
+export default LoginForm
