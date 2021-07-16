@@ -4,7 +4,7 @@ import LoginForm from './forms/loginForm'
 import RegisterForm from './forms/registerForm'
 
 export const Routes = (isLogged) => {
-  if (isLogged) {
+  if (!isLogged) {
     return (
       <Switch>
         <Route exact path='/'>
@@ -22,11 +22,11 @@ export const Routes = (isLogged) => {
   }
   return (
     <Switch>
-      <Route exact path='/'>
-        <div>main</div>
+      <Route exact path='/login'>
+        <LoginForm />
       </Route>
-      <Route exact path='/content'>
-        <div>Content</div>
+      <Route exact path='/'>
+        <div>logged main</div>
       </Route>
 
       <Redirect to='/' />

@@ -1,20 +1,26 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import { useState } from 'react'
+import { useHistory } from 'react-router-dom'
+import { AuthContext } from '../../context'
 import './forms.css'
-function RegisterForm() {
+function RegisterForm(props) {
   let [value, setValue] = useState({ email: '', password: '' })
   let [emailError, setEmailError] = useState('')
   let [passwordError, setPasswordError] = useState('')
   const hadleChange = (e) => {
     setValue({ ...value, [e.target.name]: e.target.value })
   }
+  let history = useHistory()
+  const context = useContext(AuthContext)
   const handleFocus = () => {
     setEmailError('')
     setPasswordError('')
   }
   const handleSubmit = async (e) => {
     e.preventDefault()
-    try {
+    context.login('huh')
+    history.push('/')
+    /* try {
       const data = await fetch('/api/auth/register', {
         method: 'POST',
         headers: { 'Content-type': 'application/json' },
@@ -33,7 +39,7 @@ function RegisterForm() {
       }
     } catch (e) {
       throw e
-    }
+    } */
   }
   return (
     <div className='wraper'>
