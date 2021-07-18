@@ -1,0 +1,17 @@
+:root {
+  --dark-color: rgb(75, 71, 71);
+}
+.navbar {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+}
+a,
+button {
+  display: block;
+  padding: 10px;
+  margin-right: 10px;
+  color: cadetblue;
+  background-color: var(--dark-color);
+  text-decoration: none;
+}

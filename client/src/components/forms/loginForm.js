@@ -1,10 +1,12 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import { useState } from 'react'
 import { useHistory } from 'react-router-dom'
-import './forms.css'
+import { AuthContext } from '../../context'
+import style from './forms.module.css'
 function LoginForm() {
   let history = useHistory()
 
+  const context = useContext(AuthContext)
   let [value, setValue] = useState({ email: '', password: '' })
   let [error, setError] = useState('')
   const hadleChange = (e) => {
@@ -26,15 +28,15 @@ function LoginForm() {
       if (res.message) {
         setError(res.message)
       } else {
+        context.login(res.token)
         history.push('/')
-        // localStorage.setItem('auth', JSON.stringify({ token: res.token }))
       }
     } catch (e) {
       throw e
     }
   }
   return (
-    <div className='wraper'>
+    <div className={style.wraper}>
       <form onFocus={handleFocus}>
         <label htmlFor='email'>email</label>
         <input
@@ -54,7 +56,9 @@ function LoginForm() {
           id='password'
         />
         <span>{error}</span>
-        <button onClick={handleSubmit}>login</button>
+        <button className={style.btn} onClick={handleSubmit}>
+          login
+        </button>
       </form>
     </div>
   )

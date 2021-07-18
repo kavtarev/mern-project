@@ -2,7 +2,8 @@ import React, { useContext } from 'react'
 import { useState } from 'react'
 import { useHistory } from 'react-router-dom'
 import { AuthContext } from '../../context'
-import './forms.css'
+import style from './forms.module.css'
+
 function RegisterForm(props) {
   let [value, setValue] = useState({ email: '', password: '' })
   let [emailError, setEmailError] = useState('')
@@ -18,9 +19,8 @@ function RegisterForm(props) {
   }
   const handleSubmit = async (e) => {
     e.preventDefault()
-    context.login('huh')
-    history.push('/')
-    /* try {
+
+    try {
       const data = await fetch('/api/auth/register', {
         method: 'POST',
         headers: { 'Content-type': 'application/json' },
@@ -28,21 +28,27 @@ function RegisterForm(props) {
         body: JSON.stringify(value),
       })
       const res = await data.json()
-      if (typeof res.message === 'string') {
-        setEmailError(res.message)
+      if (res.token) {
+        context.login(res.token)
+        history.push('/')
       }
-      if (res.message.email) {
-        setEmailError(res.message.email.message)
-      }
-      if (res.message.password) {
-        setPasswordError(res.message.password.message)
+      if (res.message) {
+        if (typeof res.message === 'string') {
+          setEmailError(res.message)
+        }
+        if (res.message.email) {
+          setEmailError(res.message.email.message)
+        }
+        if (res.message.password) {
+          setPasswordError(res.message.password.message)
+        }
       }
     } catch (e) {
       throw e
-    } */
+    }
   }
   return (
-    <div className='wraper'>
+    <div className={style.wraper}>
       <form onFocus={handleFocus}>
         <label htmlFor='email'>email</label>
         <input
@@ -62,7 +68,9 @@ function RegisterForm(props) {
           id='password'
         />
         <span>{passwordError}</span>
-        <button onClick={handleSubmit}>register</button>
+        <button className={style.btn} onClick={handleSubmit}>
+          register
+        </button>
       </form>
     </div>
   )

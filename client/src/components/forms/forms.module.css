@@ -18,7 +18,7 @@ form {
 }
 label,
 input,
-button {
+.btn {
   width: 100%;
   padding: 5px;
   margin-bottom: 10px;
@@ -31,7 +31,7 @@ input {
   font-size: 30px;
   font-weight: 700;
 }
-button {
+.btn {
   font-size: 30px;
   text-transform: capitalize;
   font-weight: 500;

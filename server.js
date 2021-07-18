@@ -3,13 +3,14 @@ const express = require('express')
 const app = express()
 const PORT = process.env.PORT || 3001
 const mongoose = require('mongoose')
-const router = require('./router/auth')
+const authRouter = require('./router/auth')
+const dnsRouter = require('./router/dns')
 const cookieParser = require('cookie-parser')
-
+app.use(cookieParser())
 app.use(express.json())
 app.use(express.static('static'))
-app.use('/api/auth', router)
-app.use(cookieParser())
+app.use('/api/auth', authRouter)
+app.use('/api/dns', dnsRouter)
 
 app.get('/', (req, res) => {
   res.json({ hi: 'hi' })

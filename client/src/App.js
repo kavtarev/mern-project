@@ -8,12 +8,13 @@ import { AuthHook } from './hook'
 function App() {
   const { login, logout, token } = AuthHook()
   const isLogged = !!token
-  const routes = Routes(isLogged)
+  console.log('app.js ', token, isLogged)
+
   return (
     <AuthContext.Provider value={{ login, logout, token, isLogged }}>
       <BrowserRouter>
-        {<Navbar />}
-        <div>{routes}</div>
+        <Navbar />
+        <Routes />
       </BrowserRouter>
     </AuthContext.Provider>
   )
