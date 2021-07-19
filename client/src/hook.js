@@ -26,10 +26,12 @@ function setCookie(name, value, options = {}) {
 
 export const AuthHook = () => {
   let [token, setToken] = useState(null)
+  let [ready, setReady] = useState(false)
 
   const login = useCallback((JWTtoken) => {
     setToken(JWTtoken)
-    document.cookie = `JWT=${JWTtoken}`
+    setCookie('JWT2', `${JWTtoken}`, { 'max-age': 3600 })
+    //document.cookie = `JWT2=${JWTtoken}; max-age=3600`
     //localStorage.setItem('jwt', JSON.stringify({ token: JWTtoken }))
   }, [])
   const logout = useCallback(() => {
@@ -39,7 +41,7 @@ export const AuthHook = () => {
         'max-age': -1,
       })
     }
-    deleteCookie('JWT')
+    deleteCookie('JWT2')
     localStorage.clear()
   }, [])
   useEffect(() => {
@@ -53,14 +55,15 @@ export const AuthHook = () => {
       )
       return matches ? decodeURIComponent(matches[1]) : undefined
     }
-    const cookie = getCookie('JWT')
-    const data = JSON.parse(localStorage.getItem('jwt'))
+    const cookie = getCookie('JWT2')
+    // const data = JSON.parse(localStorage.getItem('jwt'))
     /* if (data && data.token) {
       login(data.token)
     } */
     if (cookie) {
       login(cookie)
     }
-  }, [token, login])
-  return { login, logout, token }
+    setReady(true)
+  }, [login])
+  return { login, logout, token, ready }
 }

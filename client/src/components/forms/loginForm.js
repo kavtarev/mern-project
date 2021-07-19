@@ -29,7 +29,7 @@ function LoginForm() {
         setError(res.message)
       } else {
         context.login(res.token)
-        history.push('/')
+        history.push('/links')
       }
     } catch (e) {
       throw e

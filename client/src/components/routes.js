@@ -4,43 +4,39 @@ import LoginForm from './forms/loginForm'
 import RegisterForm from './forms/registerForm'
 import { AuthContext } from '../context'
 import { DnsComponent } from './dns/dnsComponent'
+import { LinkComponent } from './dns/linkComponent'
 
 export const Routes = () => {
   let context = useContext(AuthContext)
   useEffect(() => {
     console.log('routes.js ', context.isLogged)
   }, [context.isLogged])
-  if (!context.isLogged) {
+  if (context.isLogged) {
     return (
       <Switch>
-        <Route exact path='/'>
-          <div>main</div>
+        <Route path='/links' exact>
+          <DnsComponent />
         </Route>
-        <Route path='/register'>
-          <RegisterForm />
+        <Route path='/link/:id' exact>
+          <LinkComponent />
         </Route>
-        <Route path='/data'></Route>
-        <Route path='/login'>
-          <LoginForm />
+        <Route path='/new' exact>
+          <div>create</div>
         </Route>
-
-        <Redirect to='/' />
+        <Route>page not exists</Route>
       </Switch>
     )
   }
   return (
     <Switch>
-      <Route exact path='/'>
-        <div>logged main</div>
-      </Route>
-      <Route path='/data'>
-        <DnsComponent />
-      </Route>
-      <Route path='/login'>
-        <LoginForm />
+      <Route path='/' exact>
+        <div>main</div>
       </Route>
       <Route path='/register'>
         <RegisterForm />
+      </Route>
+      <Route path='/login'>
+        <LoginForm />
       </Route>
       <Redirect to='/' />
     </Switch>

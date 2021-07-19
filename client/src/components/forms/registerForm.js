@@ -30,7 +30,7 @@ function RegisterForm(props) {
       const res = await data.json()
       if (res.token) {
         context.login(res.token)
-        history.push('/')
+        history.push('/links')
       }
       if (res.message) {
         if (typeof res.message === 'string') {
