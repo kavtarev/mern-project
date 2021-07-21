@@ -5,6 +5,7 @@ import RegisterForm from './forms/registerForm'
 import { AuthContext } from '../context'
 import { DnsComponent } from './dns/dnsComponent'
 import { LinkComponent } from './dns/linkComponent'
+import { NewLinkComponent } from './dns/NewLinkComponent'
 
 export const Routes = () => {
   let context = useContext(AuthContext)
@@ -21,7 +22,7 @@ export const Routes = () => {
           <LinkComponent />
         </Route>
         <Route path='/new' exact>
-          <div>create</div>
+          <NewLinkComponent />
         </Route>
         <Route>page not exists</Route>
       </Switch>
