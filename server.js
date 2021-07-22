@@ -12,9 +12,6 @@ app.use(express.static('static'))
 app.use('/api/auth', authRouter)
 app.use('/api/dns', dnsRouter)
 
-app.get('/', (req, res) => {
-  res.json({ hi: 'hi' })
-})
 mongoose.connect(
   process.env.DB,
   { useNewUrlParser: true, useUnifiedTopology: true },
@@ -25,4 +22,3 @@ mongoose.connect(
     })
   }
 )
-;('git branch -M main')

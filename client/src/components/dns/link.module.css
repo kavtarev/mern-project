@@ -1,0 +1,37 @@
+.wrapper {
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  background-color: rgb(243, 199, 199);
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+.link {
+  padding: 10px;
+  margin-bottom: 10px;
+  background-color: rgb(223, 59, 59);
+  color: #444;
+}
+.form {
+  width: 30%;
+}
+.form .btn {
+  width: 100%;
+  background-color: rgb(223, 59, 59);
+  color: beige;
+  font-size: 20px;
+  padding: 5px;
+}
+.form label {
+  background-color: rgb(223, 59, 59);
+  color: beige;
+  font-size: 20px;
+  margin: 0;
+}
+.form input {
+  margin: 0;
+}

@@ -9,7 +9,7 @@ class auth {
         let isLegit = await bcrypt.compare(req.body.password, user.password)
         if (isLegit) {
           const token = jwt.sign({ id: user.id }, process.env.SECRET, {
-            expiresIn: 3600,
+            expiresIn: 3600 * 20,
           })
           //res.cookie('token', token, { maxAge: 3600 * 1000 })
           res.status(200).json({ token })
@@ -30,7 +30,7 @@ class auth {
 
       let user = await User.create({ email, password })
       const token = jwt.sign({ id: user.id }, process.env.SECRET, {
-        expiresIn: 3600,
+        expiresIn: 3600 * 20,
       })
       //res.cookie('token', token, { maxAge: 3600 * 1000 })
       res.status(200).json({ token })

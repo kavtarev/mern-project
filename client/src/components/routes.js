@@ -1,17 +1,15 @@
 import { Switch, Route, Redirect } from 'react-router-dom'
-import React, { useContext, useEffect } from 'react'
+import React, { useContext } from 'react'
 import LoginForm from './forms/loginForm'
 import RegisterForm from './forms/registerForm'
 import { AuthContext } from '../context'
 import { DnsComponent } from './dns/dnsComponent'
 import { LinkComponent } from './dns/linkComponent'
 import { NewLinkComponent } from './dns/NewLinkComponent'
+import { MainPageComponent } from './mainPage/mainPageComponent'
 
 export const Routes = () => {
   let context = useContext(AuthContext)
-  useEffect(() => {
-    console.log('routes.js ', context.isLogged)
-  }, [context.isLogged])
   if (context.isLogged) {
     return (
       <Switch>
@@ -31,7 +29,7 @@ export const Routes = () => {
   return (
     <Switch>
       <Route path='/' exact>
-        <div>main</div>
+        <MainPageComponent />
       </Route>
       <Route path='/register'>
         <RegisterForm />

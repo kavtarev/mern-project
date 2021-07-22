@@ -8,7 +8,6 @@ import { AuthHook } from './hook'
 function App() {
   const { login, logout, token, ready } = AuthHook()
   const isLogged = !!token
-  console.log('app.js ', token, isLogged)
   if (!ready) {
     return <div>loader</div>
   }

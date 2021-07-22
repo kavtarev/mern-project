@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
-
+import { Loader } from '../loader/Loader'
+import style from './link.module.css'
 export const LinkComponent = () => {
   const id = useParams().id
-  // let history = useHistory()
   let [link, setLink] = useState('')
 
   useEffect(() => {
@@ -11,7 +11,6 @@ export const LinkComponent = () => {
       try {
         const data = await fetch(`/api/dns/link/${id}`)
         const res = await data.json()
-        console.log('reeees ', res)
         setLink(res.link)
 
         return <div>huuuu</div>
@@ -23,16 +22,19 @@ export const LinkComponent = () => {
       }
     }
     getData()
-  }, [])
+  }, [id])
 
   if (!link) {
-    return <div>no</div>
+    return (
+      <div className={style.wrapper}>
+        <Loader />
+      </div>
+    )
   } else {
     return (
-      <div>
-        <div>{link._id}</div>
-        <div>{link.name}</div>
-        <div>{link.ip}</div>
+      <div className={style.wrapper}>
+        <h3>{link.link}</h3>
+        <h3>{link.ip}</h3>
       </div>
     )
   }

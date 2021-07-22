@@ -1,10 +1,9 @@
 const { Schema, model, Types } = require('mongoose')
 
 const link = new Schema({
-  name: {
+  link: {
     type: String,
     require: [true, 'this must be url'],
-    unique: true,
   },
   ip: {
     type: String,

@@ -5,12 +5,20 @@ import style from './navbar.module.css'
 
 export const Navbar = () => {
   let context = useContext(AuthContext)
-  return (
-    <div className={style.navbar}>
-      <NavLink to='/'>main</NavLink>
-      {!context.isLogged && <NavLink to='/login'>login</NavLink>}
-      {!context.isLogged && <NavLink to='/register'>register</NavLink>}
-      {context.isLogged && <button onClick={context.logout}>logout</button>}
-    </div>
-  )
+
+  {
+    return !context.isLogged ? (
+      <div className={style.navbar}>
+        <NavLink to='/'>main</NavLink>
+        <NavLink to='/login'>login</NavLink>
+        <NavLink to='/register'>register</NavLink>
+      </div>
+    ) : (
+      <div className={style.navbar}>
+        <NavLink to='/new'>new</NavLink>
+        <NavLink to='/links'>links</NavLink>
+        <button onClick={context.logout}>logout</button>
+      </div>
+    )
+  }
 }

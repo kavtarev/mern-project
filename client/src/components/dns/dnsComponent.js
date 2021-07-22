@@ -1,16 +1,15 @@
 import React, { useEffect, useState } from 'react'
+import { Loader } from '../loader/Loader'
+import style from './link.module.css'
 
 export const DnsComponent = () => {
   let [links, setLinks] = useState('')
-  if (links) {
-    console.log('liiii ', links)
-  }
   useEffect(() => {
     async function getData() {
       try {
         const data = await fetch('/api/dns/links')
         const res = await data.json()
-        console.log('reeees ', res)
+
         setLinks(res.links)
 
         return <div>huuuu</div>
@@ -24,17 +23,20 @@ export const DnsComponent = () => {
     getData()
   }, [])
   if (!links) {
-    return <div>no thus</div>
+    return (
+      <div className={style.wrapper}>
+        <Loader />
+      </div>
+    )
   }
   if (links) {
     return (
-      <div>
+      <div className={style.wrapper}>
         {links.map((item, i) => (
-          <a href={`/link/${item._id}`}>
+          <a className={style.link} key={i} href={`/link/${item._id}`}>
             <div>
-              <div>{i}</div>
-              <div>{item.name}</div>
-              <div>{item.ip}</div>
+              <h3>name: {item.link}</h3>
+              <h3>ip: {item.ip}</h3>
             </div>
           </a>
         ))}
